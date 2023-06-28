@@ -10,7 +10,7 @@ headers = {
         "Connection": "keep-alive"
           }
 
-URL = "https://hh.ru/search/vacancy?text={}&items_on_page=100"
+URL = "https://hh.ru/search/vacancy?text={}&items_on_page=10"
 
 
 def ExtractCntOfPages(vacancy):
@@ -36,7 +36,13 @@ def ExtractHHJobs(vacancy="python"):
                                  headers=headers)
         
         soup = BeautifulSoup(paginator.text, "html.parser")
+        raw_vacancies = soup.findAll("div", {
+            "class": "vacancy-serp-item__layout"
+                                             })
         
+        print(raw_vacancies)
+        print(len(raw_vacancies))
+        break
         
-        
+ExtractHHJobs()
         
