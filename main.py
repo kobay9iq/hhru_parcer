@@ -1,3 +1,5 @@
 import head_hunter
 
-print(head_hunter.ExtractHHJobs(vacancy="python"))
+hhVacancies = head_hunter.ExtractAllVacancies(vacancy="python")
+
+print(len(hhVacancies))
