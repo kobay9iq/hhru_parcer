@@ -25,15 +25,20 @@ def ExtractCntOfPages(vacancy):
 
     pages = []
 
-    paginator = hh_soup.find_all("span",
-                                 {"class": "pager-item-not-in-short-range", })
+    # paginator = hh_soup.find_all("span",
+    #                              {"class": "pager-item-not-in-short-range", })
+    paginator = hh_soup.find_all("a", {"class": "bloko-button", 
+                                       "rel": "nofollow", 
+                                       "data-qa": "pager-page"})
+        
     for page in paginator:
-        pages.append(int(page.find("a").text))
+        pages.append(int(page.text))
 
     return pages[-1]
 
 
 def ExtractAllVacancies(vacancy="python"):
+    vacancy = vacancy.replace(" ", "+")
     last_page = ExtractCntOfPages(vacancy)
     jobs = []
 
@@ -78,7 +83,7 @@ def ExtractVacancyInfo(html):
     experience = NoneChecker(experience)
 
     salary = html.find("span", {"data-qa":
-                               "vacancy-serp__vacancy-compensation"})
+                                "vacancy-serp__vacancy-compensation"})
     salary = NoneChecker(salary)
 
     link = html.find("a")["href"]
